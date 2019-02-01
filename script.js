@@ -1,13 +1,9 @@
-/**
- * Created by nhatnk on 4/26/17.
- */
 
 function Hero(image, top, left, size){
     this.image = image;
     this.top = top;
     this.left = left;
     this.size = size;
-    // this.count = 0;
 
     this.getHeroElement = function(){
         return '<img width="'+ this.size + '"' +
@@ -16,55 +12,30 @@ function Hero(image, top, left, size){
             ' style="top: '+this.top+ 'px; left:'+this.left+'px;position:absolute;" />';
     };
 
-    // this.moveCrazy = function(){
-    //     this.top = Math.random()*(window.innerHeight - this.size) ;
-    //     this.left = Math.random()*(window.innerWidth - this.size);
-    //     this.count ++;
-    // };
-
     this.moveRight = function(){
-        this.left += 30;
+        this.left += 28;
     };
 
     this.moveLeft = function(){
-        this.left -= 30;
+        this.left -= 28;
     };
     this.moveDown = function(){
-        this.top += 30;
+        this.top += 16;
     };
     this.moveUp = function(){
-        this.top -=30;
+        this.top -=16;
     };
 
 }
 
-var hero = new Hero('doremon.png', 20, 50, 200);
+var hero = new Hero('doremon.png', 50, 50, 200);
 var touchRight = false;
 var touchBottom = false;
 var touchLeft = false;
 var touchTop = false;
-// function start(){
-    // if (!touchRight) {
-    //     if (hero.left < window.innerWidth - hero.size) {
-    //         console.log("top: " + hero.top);
-    //         hero.moveRight();
-    //     } else {
-    //         touchRight = true;
-    //     }
-    // } else {
-    //     if (!touchBottom) {
-    //         if (hero.top > window.innerHeight - hero.size) {
-    //             console.log("top1 " + hero.top);
-    //             hero.moveDown();
-    //         } else {
-    //             touchBottom = true;
-    //         }
-    //     }
-    // }
-var round = 0;
-var width = window.innerWidth;
-var height = window.innerHeight;
-function start() {
+var width = 500;
+var height = 500;
+function start(round) {
     // if (hero.left < width - hero.size) {
     //     hero.moveRight();
     // } else {
@@ -79,7 +50,7 @@ function start() {
         touchLeft = true;
         touchBottom = true;
         touchTop = true;
-        if (hero.left >= width - hero.size) {
+        if (hero.left >= width - hero.size - 5 * round) {
             touchBottom = false;
         }
     }
@@ -89,7 +60,7 @@ function start() {
         touchRight = true;
         touchLeft = true;
         touchTop = true;
-        if (hero.top >= height - hero.size) {
+        if (hero.top >= height - hero.size - 5 * round) {
             touchLeft = false;
         }
     }
@@ -99,7 +70,7 @@ function start() {
         touchRight = true;
         touchBottom = true;
         touchTop = true;
-        if (hero.left <= 20) {
+        if (hero.left <= 50 + 5 * round) {
             touchTop = false;
         }
     }
@@ -110,19 +81,11 @@ function start() {
         touchRight = true;
         touchLeft = true;
         touchBottom = true;
-        if (hero.top <= 50) {
+        if (hero.top <= 50 + 5*round) {
             touchRight = false;
-            width -= 50;
-            height -=50;
-            hero.left += 50;
-            hero.top += 50;
+            round ++;
         }
     }
-
-
-    // if (hero.top < height - hero.size && hero.left >= width - hero.size){
-    //     hero.moveDown();
-    // }
 
 
 
@@ -156,20 +119,8 @@ function start() {
     // }
 
     document.getElementById('game').innerHTML = hero.getHeroElement();
-    setTimeout(start, 50)
+    setTimeout(start, 30)
 }
+var round = 1;
+start(round);
 
-start();
-// while (round < 4) {
-//     start();
-//     round ++;
-//     width -= 50;
-//     height -= 50;
-//     hero.left = 20*round;
-//     hero.top = 50*round;
-//     touchRight = false;
-//     touchLeft = false;
-//     touchBottom = false;
-//     touchTop = false;
-//
-// }
